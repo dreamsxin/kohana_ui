@@ -80,6 +80,7 @@ class Kohana_UI_Query {
 
                 // Set the id to the next chunk of data
                 $this->_id = $this->_get_chunk($index, $input);
+
             // If we think we have found the start of a class name
             } elseif ($character === '.') {
                 // Increment the index
@@ -87,6 +88,11 @@ class Kohana_UI_Query {
 
                 // Add the next chunk of data to the classes array
                 $this->_classes[$this->_get_chunk($index, $input)] = TRUE;
+
+            // If we dont know what this is
+            } else {
+                // Increment the index
+                $index++;
             }
         }
     }
