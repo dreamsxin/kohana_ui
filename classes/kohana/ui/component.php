@@ -102,6 +102,24 @@ class Kohana_UI_Component {
     }
 
     /**
+     * Sets a single class value to this component.
+     *
+     * @param   string  The class value to add.
+     * @return  object  A reference to this class instance.
+     */
+    public function set_class($class)
+    {
+        // Destroy all of the current classes
+        $this->_classes = array();
+
+        // Add the passed class name
+        $this->add_class($class);
+
+        // Return a reference to this class instance
+        return $this;
+    }
+
+    /**
      * Attempts to add the passed class to this component.
      *
      * @param   string  The class name to add.
