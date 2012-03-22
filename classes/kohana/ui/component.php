@@ -70,8 +70,8 @@ class Kohana_UI_Component {
         // Add a reference to this class instance to the view
         $view->component = $this;
 
-        // Attempt to render the view
-        return View::render();
+        // Render the view and return the result
+        return $view->render();
     }
 
     /**
