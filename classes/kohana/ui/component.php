@@ -23,6 +23,12 @@ class Kohana_UI_Component {
     protected $_configuration = array();
 
     /**
+     * @var  string  Holds the unique ID of this component, if one has
+     *               been assigned.
+     */
+    protected $_id = NULL;
+
+    /**
      * Configures a new instance of this class using the passed
      * configuration data using the _initialize method.
      *
