@@ -71,7 +71,13 @@ class Kohana_UI_Component {
         // If we have an id assigned in the passed configuration data
         if (isset($this->configuration->id)) {
             // Set the ID value
-            $this->_id = $this->configuration->id;
+            $this->set_id($this->configuration->id);
+        }
+
+        // If we have a class string in the passed configuration data
+        if (isset($this->configuration->class)) {
+            // Set the class
+            $this->set_class($this->configuration->class);
         }
     }
 
@@ -102,18 +108,25 @@ class Kohana_UI_Component {
     }
 
     /**
-     * Sets a single class value to this component.
+     * Sets all of the class values on this component, replacing any that
+     * are already defined.
      *
-     * @param   string  The class value to add.
+     * @param   string  The class, or classes, to add.
      * @return  object  A reference to this class instance.
      */
-    public function set_class($class)
+    public function set_class($class_string)
     {
         // Destroy all of the current classes
         $this->_classes = array();
 
-        // Add the passed class name
-        $this->add_class($class);
+        // Break apart the passed class string on the space character
+        $classes = explode(' ', $class_string);
+
+        // Loop over each of the classes
+        foreach ($classes as $class) {
+            // Add the passed class name
+            $this->add_class($class);
+        }
 
         // Return a reference to this class instance
         return $this;
