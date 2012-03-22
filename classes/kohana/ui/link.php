@@ -12,11 +12,20 @@
 class Kohana_UI_Link extends UI_Component {
 
     /**
+     * Holds the content of the link
+     */
+
+    /**
+     * Sets up the specific configuration items on this class instance.
+     *
+     * @return  null
      */
     protected function _initialize()
     {
         // Call the parent initialize method
         parent::_initialize();
+
+        // If we have a
     }
 
 } // End Kohana_UI_Link
