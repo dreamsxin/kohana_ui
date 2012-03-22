@@ -125,6 +125,7 @@ class Kohana_UI_Query {
      *
      * @param   int     The current position in the input string.
      * @param   string  The whole input string.
+     * @param   string  Optional. A termination character. Defaults to NULL.
      * @return  string  The next chunk of characters.
      */
     protected function _get_chunk(& $index, $input)
@@ -168,7 +169,7 @@ class Kohana_UI_Query {
     {
         // If the passed character is in the list of valid chunk
         // characters, return boolean TRUE
-        return strpos(self::CHUNK_CHARACTERS, $input) !== FALSE;
+        return strpos(self::CHUNK_CHARACTERS, strtolower($input)) !== FALSE;
     }
 
 } // End Kohana_UI_Query
