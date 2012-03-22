@@ -29,6 +29,12 @@ class Kohana_UI_Component {
     protected $_id = NULL;
 
     /**
+     * @var  array  Holds any class names that we want to assign to
+     *              this component.
+     */
+    protected $_classes = array();
+
+    /**
      * Configures a new instance of this class using the passed
      * configuration data using the _initialize method.
      *
@@ -61,6 +67,79 @@ class Kohana_UI_Component {
             $this->_view_name = str_replace('_', '/', strtolower(get_class(
                 $this)));
         }
+
+        // If we have an id assigned in the passed configuration data
+        if (isset($this->configuration->id)) {
+            // Set the ID value
+            $this->_id = $this->configuration->id;
+        }
+    }
+
+    /**
+     * Sets the ID value on this component.
+     *
+     * @param   string  The ID value to assign.
+     * @return  object  A reference to this class instance.
+     */
+    public function set_id($id)
+    {
+        // Set the ID value
+        $this->_id = $id;
+
+        // Return a reference to this class instance
+        return $this;
+    }
+
+    /**
+     * Returns the configured ID value.
+     *
+     * @return  mixed  The ID value for this component, if one is defined.
+     */
+    public function get_id()
+    {
+        // Return the configured ID value
+        return $this->_id;
+    }
+
+    /**
+     * Attempts to add the passed class to this component.
+     *
+     * @param   string  The class name to add.
+     * @return  object  A reference to this class instance.
+     */
+    public function add_class($class)
+    {
+        // Add the passed class name
+        $this->_classes[$class] = TRUE;
+
+        // Return a reference to this class instance
+        return $this;
+    }
+
+    /**
+     * Remove the class using the passed class name.
+     *
+     * @param   string  The class name to remove.
+     * @return  object  A reference to this class instance.
+     */
+    public function remove_class($class)
+    {
+        // Delete the passed class name
+        unset($this->_classes[$class]);
+
+        // Return a reference to this class instance
+        return $this;
+    }
+
+    /**
+     * Returns the classes configured for this component.
+     *
+     * @return  array  An array of class names.
+     */
+    public function get_classes()
+    {
+        // Return the configured class names
+        return array_keys($this->_classes);
     }
 
     /**

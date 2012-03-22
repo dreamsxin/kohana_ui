@@ -9,6 +9,14 @@
  * @copyright  (c) 2011-2012 Kohana Team
  * @license    http://kohanaphp.com/license
  */
-class Kohana_UI_Link {
+class Kohana_UI_Link extends UI_Component {
+
+    /**
+     */
+    protected function _initialize()
+    {
+        // Call the parent initialize method
+        parent::_initialize();
+    }
 
 } // End Kohana_UI_Link
