@@ -176,64 +176,43 @@ class Kohana_UI_Component {
     /**
      * Checks to see if this class instance matches the passed query string.
      *
-     * @param   string  The query string to search for.
-     * @return  array   An empty array, if this class instance doesnt match,
-     *                  or an array with a reference to this class instance.
+     * @param   mixed  The query string, or an array of query objects.
+     * @return  array  An empty array, if this class instance doesnt match,
+     *                 or an array with a reference to this class instance.
      */
-    public function query($query)
+    public function query($queries)
     {
         // If a query string was passed
-        if (is_string($query)) {
-            // Parse the query string and tranform it into a query object
-            $query = $this->_parse_query_string($query);
+        if (is_string($queries)) {
+            // Parse the query string and grab a query object
+            $queries = UI_Query::factory($queries);
         }
 
-        // If we were unable to parse the query string
-        if ( ! isset($query)) {
+        // If we have no queries to run
+        if (empty($queries)) {
             // Return an empty array
             return array();
         }
 
-        // If we are searching for a specific id, but the lowercase version of
-        // our local id does not match the id we are looking for
-        if (isset($query->id) AND strtolower($this->_id) !== strtolower($query->id)) {
-            // Return an empty array
-            return array();
+        // Loop over each of the queries
+        foreach ($queries as $query) {
+            // Return the query id value
+            $query_id = $query->get_id();
+
+            // If we are searching for a specific id, our id does not
+            // match the id we are searching for
+            if (isset($query_id) AND
+                strtolower($this->_id) !== strtolower($query_id)) {
+                // Move on to the next query
+                continue;
+            }
+
+            // If we made it to here, we must have a match
+            return array($this);
         }
 
-        // If we made it down here, we must have matched because we managed to pass
-        // through all of the disqualification checks
-        return array($this);
-    }
-
-    /**
-     * Attempts to parse the passed query string into a query object.
-     *
-     * @param   string  The query string to parse.
-     * @return  object  A query object with the details of what we are
-     *                  searching for.
-     */
-    protected function _parse_query_string($query)
-    {
-        // Trim the query string
-        $query = trim($query);
-
-        // If we are searching for a specific id
-        if (substr($query, 0, 1) === '#') {
-            // Grab the id value from the query string, and make it lowercase
-            $query_id = strtolower(substr($query, 1));
-        }
-
-        // If we have no search criteria
-        if ( ! isset($query_id)) {
-            // Return NULL
-            return NULL;
-        }
-
-        // Return the finished query object
-        return (object) array(
-            'id' => isset($query_id) ? $query_id : NULL,
-        );
+        // If we made it to here, we matched nothing
+        return array();
     }
 
     /**
