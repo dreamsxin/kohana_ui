@@ -64,6 +64,69 @@ class Kohana_UI_Component {
     }
 
     /**
+     * Checks to see if this class instance matches the passed query string.
+     *
+     * @param   string  The query string to search for.
+     * @return  array   An empty array, if this class instance doesnt match,
+     *                  or an array with a reference to this class instance.
+     */
+    public function query($query)
+    {
+        // If a query string was passed
+        if (is_string($query)) {
+            // Parse the query string and tranform it into a query object
+            $query = $this->_parse_query_string($query);
+        }
+
+        // If we were unable to parse the query string
+        if ( ! isset($query)) {
+            // Return an empty array
+            return array();
+        }
+
+        // If we are searching for a specific id, but the lowercase version of
+        // our local id does not match the id we are looking for
+        if (isset($query->id) AND strtolower($this->_id) !== strtolower($query->id)) {
+            // Return an empty array
+            return array();
+        }
+
+        // If we made it down here, we must have matched because we managed to pass
+        // through all of the disqualification checks
+        return array($this);
+    }
+
+    /**
+     * Attempts to parse the passed query string into a query object.
+     *
+     * @param   string  The query string to parse.
+     * @return  object  A query object with the details of what we are
+     *                  searching for.
+     */
+    protected function _parse_query_string($query)
+    {
+        // Trim the query string
+        $query = trim($query);
+
+        // If we are searching for a specific id
+        if (substr($query, 0, 1) === '#') {
+            // Grab the id value from the query string, and make it lowercase
+            $query_id = strtolower(substr($query, 1));
+        }
+
+        // If we have no search criteria
+        if ( ! isset($query_id)) {
+            // Return NULL
+            return NULL;
+        }
+
+        // Return the finished query object
+        return (object) array(
+            'id' => isset($query_id) ? $query_id : NULL,
+        );
+    }
+
+    /**
      * Renders this object using the corresponding view file.
      *
      * @return  string  The rendered HTML content.

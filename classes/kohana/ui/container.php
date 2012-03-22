@@ -52,4 +52,39 @@ class Kohana_UI_Container extends UI_Component {
         throw new UI_Exception('Unable to add child item.');
     }
 
+    /**
+     * Attempts to find any matching containers or components in this tree
+     * using the provided query string.
+     *
+     * @param   mixed  The query string, or query object to search for.
+     * @return  array  All of the matching class instances.
+     */
+    public function query($query)
+    {
+        // If a query string was passed
+        if (is_string($query)) {
+            // Parse the query string and tranform it into a query object
+            $query = $this->_parse_query_string($query);
+        }
+
+        // If we were unable to parse the query string
+        if ( ! isset($query)) {
+            // Return an empty array
+            return array();
+        }
+
+        // Determine if this class instance matches the query, and if so, add
+        // this class instance to the initial set of matches
+        $matches = parent::query($query);
+
+        // Loop over each of the child items
+        foreach ($this->_items as $item) {
+            // Merge any returned matches with the current set of matches
+            $matches = array_merge($matches, $item->query($query));
+        }
+
+        // Return all of the matched class instances
+        return $matches;
+    }
+
 } // End Kohana_UI_Container
