@@ -16,7 +16,8 @@ class Kohana_UI {
      * @param   mixed  A nested structure of UI definitions.
      * @return  mixed  An object structure of nested UI classes.
      */
-    public static generate($structure, $serialized_deserialized = FALSE)
+    public static function generate($structure,
+        $serialized_deserialized = FALSE)
     {
         // If we have not already encoded and decoded this structure
         if ( ! $serialized_deserialized) {
