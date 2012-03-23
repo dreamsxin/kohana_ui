@@ -8,4 +8,4 @@
  * @copyright  (c) 2011-2012 Kohana Team
  * @license    http://kohanaphp.com/license
  */
-class UI_Utilities extends Kohana_UI_Utilities {}
+class UI_Query extends Kohana_UI_Query {}

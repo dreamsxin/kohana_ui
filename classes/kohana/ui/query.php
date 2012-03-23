@@ -32,7 +32,7 @@ class Kohana_UI_Query {
      * @param   string  The query string to parse.
      * @return  array   An array of query objects.
      */
-    public function factory($query)
+    public static function factory($query)
     {
         // Create an empty array to put the finished query objects in
         $query_objects = array();
