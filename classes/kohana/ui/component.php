@@ -69,15 +69,15 @@ class Kohana_UI_Component {
         }
 
         // If we have an id assigned in the passed configuration data
-        if (isset($this->configuration->id)) {
+        if (isset($this->_configuration->id)) {
             // Set the ID value
-            $this->set_id($this->configuration->id);
+            $this->set_id($this->_configuration->id);
         }
 
         // If we have a class string in the passed configuration data
-        if (isset($this->configuration->class)) {
+        if (isset($this->_configuration->class)) {
             // Set the class
-            $this->set_class($this->configuration->class);
+            $this->set_class($this->_configuration->class);
         }
     }
 
