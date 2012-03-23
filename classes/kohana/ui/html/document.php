@@ -38,21 +38,21 @@ class Kohana_UI_HTML_Document extends UI_Container {
         parent::_initialize();
 
         // If the configuration data has a title property
-        if (isset($this->configuration->title)) {
+        if (isset($this->_configuration->title)) {
             // Set the page title
-            $this->set_title($this->configuration->title);
+            $this->set_title($this->_configuration->title);
         }
 
         // If the configuration data has a css property
-        if (isset($this->configuration->css)) {
+        if (isset($this->_configuration->css)) {
             // Set the CSS property
-            $this->set_css($this->configuration->css);
+            $this->set_css($this->_configuration->css);
         }
 
         // If the configuration data has a javascript property
-        if (isset($this->configuration->javascript)) {
+        if (isset($this->_configuration->javascript)) {
             // Set the JavaScript property
-            $this->set_javascript($this->configuration->javascript);
+            $this->set_javascript($this->_configuration->javascript);
         }
     }
 
