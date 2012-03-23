@@ -23,6 +23,11 @@ class Kohana_UI_HTML_Document extends UI_Container {
     protected $_css = array();
 
     /**
+     * @var  string  Holds the page title.
+     */
+    protected $_title = NULL;
+
+    /**
      * Sets up the specific configuration items on this class instance.
      *
      * @return  null
@@ -31,6 +36,10 @@ class Kohana_UI_HTML_Document extends UI_Container {
     {
         // Call the parent initialize method
         parent::_initialize();
+
+        // Copy the page title from the configuration data
+        $this->set_title(isset($this->configuration->title) ?
+            $this->configuration->title : '');
     }
 
 } // End Kohana_UI_HTML_Document
