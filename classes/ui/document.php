@@ -8,4 +8,4 @@
  * @copyright  (c) 2011-2012 Kohana Team
  * @license    http://kohanaphp.com/license
  */
-class UI_HTML_Document extends Kohana_UI_HTML_Document {}
+class UI_Document extends Kohana_UI_Document {}

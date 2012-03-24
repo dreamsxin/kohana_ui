@@ -8,7 +8,7 @@
  * @copyright  (c) 2011-2012 Kohana Team
  * @license    http://kohanaphp.com/license
  */
-class Kohana_UI_HTML_Document extends UI_Container {
+class Kohana_UI_Document extends UI_Container {
 
     /**
      * @var  string  Holds the page title.
@@ -202,4 +202,4 @@ class Kohana_UI_HTML_Document extends UI_Container {
         return array_keys($this->_javascript);
     }
 
-} // End Kohana_UI_HTML_Document
+} // End Kohana_UI_Document
