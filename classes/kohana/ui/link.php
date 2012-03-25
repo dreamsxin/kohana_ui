@@ -113,6 +113,15 @@ class Kohana_UI_Link extends UI_Container {
         // Add the href attribute
         $attributes['href'] = $href !== '' ? $href : '#';
 
+        // Attempt to grab the link title
+        $title = (string) $this->get_title();
+
+        // If we have a title
+        if ($title !== '') {
+            // Add a title attribute
+            $attributes['title'] = $title;
+        }
+
         // Return the completed set of attributes
         return $attributes;
     }
