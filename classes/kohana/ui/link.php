@@ -105,7 +105,7 @@ class Kohana_UI_Link extends UI_Container {
     {
         // Initialize the attributes array with the return value of
         // the parent method
-        $attributes = parent::get_attributes();;
+        $attributes = parent::get_attributes();
 
         // Grab the href value and cast it to a string
         $href = (string) $this->get_href();
