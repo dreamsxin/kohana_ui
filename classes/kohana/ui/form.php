@@ -116,4 +116,4 @@ class Kohana_UI_Form extends UI_Container {
         return $attributes;
     }
 
-} // End Kohana_UI_Document
+} // End Kohana_UI_Form
