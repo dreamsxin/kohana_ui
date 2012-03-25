@@ -96,4 +96,25 @@ class Kohana_UI_Link extends UI_Container {
         return $this;
     }
 
+    /**
+     * Returns the HTML attributes to assign to this component.
+     *
+     * @return  array  An array of key/value pairs.
+     */
+    public function get_attributes()
+    {
+        // Initialize the attributes array with the return value of
+        // the parent method
+        $attributes = parent::get_attributes();;
+
+        // Grab the href value and cast it to a string
+        $href = (string) $this->get_href();
+
+        // Add the href attribute
+        $attributes['href'] = $href !== '' ? $href : '#';
+
+        // Return the completed set of attributes
+        return $attributes;
+    }
+
 } // End Kohana_UI_Link

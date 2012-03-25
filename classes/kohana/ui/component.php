@@ -174,6 +174,38 @@ class Kohana_UI_Component {
     }
 
     /**
+     * Returns the HTML attributes to assign to this component.
+     *
+     * @return  array  An array of key/value pairs.
+     */
+    public function get_attributes()
+    {
+        // Initialize the attributes array
+        $attributes = array();
+
+        // Grab the id value and cast it to a string
+        $id = (string) $this->get_id();
+
+        // If we have an id value
+        if ($id !== '') {
+            // Add the id attribute
+            $attributes['id'] = '#'.$id;
+        }
+
+        // Grab any classes that have been defined
+        $classes = implode(' ', $this->get_classes());
+
+        // If we have any classes
+        if ($classes !== '') {
+            // Put the classes in an attribute
+            $attributes['class'] = $classes;
+        }
+
+        // Return the completed set of attributes
+        return $attributes;
+    }
+
+    /**
      * Checks to see if this class instance matches the passed query string.
      *
      * @param   mixed  The query string, or an array of query objects.
