@@ -49,7 +49,7 @@ class Kohana_UI_Query {
         $query_objects = array();
 
         // Break apart any separate queries that may be defined
-        $query_strings = explode(' ', $query);
+        $query_strings = explode(',', $query);
 
         // Loop over the separate query strings
         foreach ($query_strings as $query_string) {
