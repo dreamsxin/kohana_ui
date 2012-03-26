@@ -4,7 +4,7 @@
 <div class="navbar-inner">
 <div class="container">
 
-<a class="brand" href="<?= URL::site() ?>"><?= $container->get_title() ?></a>
+<a class="brand" href="<?= URL::site() ?>"><?= HTML::entities($container->get_title()) ?></a>
 
 <ul class="nav">
 
