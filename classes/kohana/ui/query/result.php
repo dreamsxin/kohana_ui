@@ -62,6 +62,17 @@ class Kohana_UI_Query_Result {
     }
 
     /**
+     * Returns the number of matched items in the objects array
+     *
+     * @return  int  The count of matched user interface objects.
+     */
+    public function count()
+    {
+        // Return the count of the user interface objects
+        return count($this->_objects);
+    }
+
+    /**
      * If a method was called that we do not have a local definition for.
      *
      * @param   string  The method name that was called.
