@@ -32,6 +32,12 @@ class Kohana_UI_Query {
     protected $_classes = array();
 
     /**
+     * @var  array  Holds the attribute key/value pairs we are searching
+     *              for, if any.
+     */
+    protected $_attributes = array();
+
+    /**
      * Returns an array of new query objects using the passed query string.
      *
      * @param   string  The query string to parse.
@@ -104,6 +110,25 @@ class Kohana_UI_Query {
                 // Indicate that we have matched on a pattern
                 $matched_pattern = TRUE;
 
+            // If we are trying to match on a specific attribute value
+            } elseif ($character === '[') {
+                // Increment the index
+                $index++;
+
+                // Grab the next chunk of data before the equals sign as
+                // the attribute name
+                $attribute_name = $this->_get_chunk($index, $input, '=');
+
+                // Increment the index
+                $index++;
+
+                // Grab the next chunk of data before the end square bracket
+                // as the attribute value
+                $attribute_value = $this->_get_chunk($index, $input, ']');
+
+                // Set the attribute key/value pair
+                $this->_attributes[$attribute_name] = $attribute_value;
+
             // If we have not mached on any other pattern, but the current
             // character looks like it could be part of a chunk
             } elseif ( ! $matched_pattern AND
@@ -160,6 +185,19 @@ class Kohana_UI_Query {
     }
 
     /**
+     * Return the attribute key/value pairs we are searching for.
+     *
+     * @return  object  An object of attribute key/value pairs we
+     *                  are searching for.
+     */
+    public function get_attributes()
+    {
+        // Return the attribute key/value pairs we are searching for cast
+        // to an object to break the reference
+        return (object) $this->_attributes;
+    }
+
+    /**
      * Returns the next chunk of characters from the passed input string.
      *
      * @param   int     The current position in the input string.
@@ -167,7 +205,8 @@ class Kohana_UI_Query {
      * @param   string  Optional. A termination character. Defaults to NULL.
      * @return  string  The next chunk of characters.
      */
-    protected function _get_chunk(& $index, $input)
+    protected function _get_chunk(& $index, $input,
+        $termination_character = NULL)
     {
         // Create the output buffer
         $output = '';
@@ -180,8 +219,18 @@ class Kohana_UI_Query {
             // Grab a reference to the current character
             $character = $input[$index];
 
-            // If the current character is not a valid name character
-            if ( ! $this->_chunk_character($character)) {
+            // If we are not looking for a specific termination character and
+            // the current character is not a valid name character
+            if ( ! isset($termination_character) AND
+                ! $this->_chunk_character($character)) {
+                // Break out of the while loop
+                break;
+            }
+
+            // If we are looking for a specific termination character and we
+            // have not reached it yet
+            if (isset($termination_character) AND
+                $character !== $termination_character) {
                 // Break out of the while loop
                 break;
             }
