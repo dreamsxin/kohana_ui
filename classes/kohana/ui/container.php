@@ -60,8 +60,8 @@ class Kohana_UI_Container extends UI_Component {
             return $this;
         }
 
-        // If the passed child data is an object
-        if (is_object($child)) {
+        // If the passed child data is an object or an array
+        if (is_object($child) OR is_array($child)) {
             // Attempt to add the result of the call to 'UI::generate'
             $this->add(UI::generate($child));
 
