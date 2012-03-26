@@ -17,6 +17,11 @@ class Kohana_UI_Component {
     protected $_view_name = NULL;
 
     /**
+     * @var  string  Holds the type name of this component.
+     */
+    protected $_type_name = NULL;
+
+    /**
      * @var  array  Holds a reference to the configuration data used to
      *              set up this class instance.
      */
@@ -66,6 +71,15 @@ class Kohana_UI_Component {
             // code will make the view name be 'ui/super/duper/hyperlink'.
             $this->_view_name = str_replace('_', '/', strtolower(get_class(
                 $this)));
+        }
+
+        // If the type name has not already been defined
+        if ( ! isset($this->_type_name)) {
+            // Determine the type name using the class name. For example, if
+            // the class name is 'UI_Super_Duper_Hyperlink', this next line of
+            // code will make the type name be 'super-duper-hyperlink'.
+            $this->_type_name = str_replace('_', '-', strtolower(substr(
+                get_class($this), 3)));
         }
 
         // If we have an id assigned in the passed configuration data
@@ -228,10 +242,21 @@ class Kohana_UI_Component {
 
         // Loop over each of the queries
         foreach ($queries as $query) {
+            // Return the type name value
+            $type_name = $query->get_type_name();
+
+            // If we are searching for a specific type name, and our type
+            // name does not match the type name we are searching for
+            if (isset($type_name) AND
+                $this->_type_name !== strtolower($type_name)) {
+                // Move on to the next query
+                continue;
+            }
+
             // Return the query id value
             $query_id = $query->get_id();
 
-            // If we are searching for a specific id, our id does not
+            // If we are searching for a specific id, and our id does not
             // match the id we are searching for
             if (isset($query_id) AND
                 strtolower($this->_id) !== strtolower($query_id)) {

@@ -17,6 +17,11 @@ class Kohana_UI_Query {
     const CHUNK_CHARACTERS = 'abcdefghijklmnopqrstuvwxyz0123456789-_';
 
     /**
+     * @var  string  Holds the type name being searched for, if any.
+     */
+    protected $_type_name = NULL;
+
+    /**
      * @var  array  Holds the ID being searched for, if any.
      */
     protected $_id = NULL;
@@ -68,6 +73,10 @@ class Kohana_UI_Query {
         // Initialize the current character index
         $index = 0;
 
+        // Flag which indicates if we have already matched on other
+        // patterns or not
+        $matched_pattern = FALSE;
+
         // Loop over each character in the query string
         while ($index < $input_length) {
             // Grab a reference to the current character
@@ -81,6 +90,9 @@ class Kohana_UI_Query {
                 // Set the id to the next chunk of data
                 $this->_id = $this->_get_chunk($index, $input);
 
+                // Indicate that we have matched on a pattern
+                $matched_pattern = TRUE;
+
             // If we think we have found the start of a class name
             } elseif ($character === '.') {
                 // Increment the index
@@ -89,12 +101,39 @@ class Kohana_UI_Query {
                 // Add the next chunk of data to the classes array
                 $this->_classes[$this->_get_chunk($index, $input)] = TRUE;
 
+                // Indicate that we have matched on a pattern
+                $matched_pattern = TRUE;
+
+            // If we have not mached on any other pattern, but the current
+            // character looks like it could be part of a chunk
+            } elseif ( ! $matched_pattern AND
+                $this->_chunk_character($character)) {
+
+                // Set the type name to the next chunk of data
+                $this->_type_name = $this->_get_chunk($index, $input);
+
+                // Indicate that we have matched on a pattern
+                $matched_pattern = TRUE;
+
             // If we dont know what this is
             } else {
                 // Increment the index
                 $index++;
             }
         }
+    }
+
+    /**
+     * Returns the type name that we are searching for.
+     *
+     * @return  mixed  The type name to search for, if we have one. If we
+     *                 are not searching for a type name, this method will
+     *                 return NULL.
+     */
+    public function get_type_name()
+    {
+        // Return the type name string
+        return $this->_type_name;
     }
 
     /**
