@@ -264,6 +264,18 @@ class Kohana_UI_Component {
                 continue;
             }
 
+            // Grab the class names to search for
+            $classes = $query->get_classes();
+
+            // Loop over each of the class names
+            foreach ($classes as $class) {
+                // If we do not have this class name assigned
+                if ( ! isset($this->_classes[$class])) {
+                    // Move on to the next query
+                    continue 2;
+                }
+            }
+
             // Grab the attributes to search for
             $attributes = $query->get_attributes();
 
