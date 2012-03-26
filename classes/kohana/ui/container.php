@@ -111,6 +111,29 @@ class Kohana_UI_Container extends UI_Component {
     }
 
     /**
+     * Executes the query method searching for a specific child with an id
+     * value that matches the passed name string.
+     *
+     * @param   string  The name of the object we are searching for.
+     * @return  object  The first object returned by the query.
+     */
+    public function __get($name)
+    {
+        // Execute the query and get the result
+        $result = $this->query('#'.$name);
+
+        // If we had no matches
+        if ($result->count() < 1) {
+            // Throw an exception
+            throw new Kohana_UI_Exception('Could not find a child object '.
+                'with an id value of ":id".', array(':id' => $name));
+        }
+
+        // Return a reference to the first matching child object
+        return $result->shift();
+    }
+
+    /**
      * Renders this object using the corresponding view file.
      *
      * @return  string  The rendered HTML content.
