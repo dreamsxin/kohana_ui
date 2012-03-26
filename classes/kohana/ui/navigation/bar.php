@@ -11,6 +11,11 @@
 class Kohana_UI_Navigation_Bar extends UI_Container {
 
     /**
+     * @var  string  Holds the title value.
+     */
+    protected $_title = NULL;
+
+    /**
      * Sets up the specific configuration items on this class instance.
      *
      * @return  null
