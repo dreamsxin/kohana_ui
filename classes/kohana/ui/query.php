@@ -127,7 +127,8 @@ class Kohana_UI_Query {
                 $attribute_value = $this->_get_chunk($index, $input, ']');
 
                 // Set the attribute key/value pair
-                $this->_attributes[$attribute_name] = $attribute_value;
+                $this->_attributes[trim($attribute_name)] =
+                    trim($attribute_value);
 
             // If we have not mached on any other pattern, but the current
             // character looks like it could be part of a chunk
