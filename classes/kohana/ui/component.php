@@ -203,7 +203,7 @@ class Kohana_UI_Component {
         // If we have an id value
         if ($id !== '') {
             // Add the id attribute
-            $attributes['id'] = '#'.$id;
+            $attributes['id'] = $id;
         }
 
         // Grab any classes that have been defined
