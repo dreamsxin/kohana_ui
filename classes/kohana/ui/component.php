@@ -236,8 +236,8 @@ class Kohana_UI_Component {
 
         // If we have no queries to run
         if (empty($queries)) {
-            // Return an empty array
-            return array();
+            // Return an empty query result
+            return new UI_Query_Result(array());
         }
 
         // Loop over each of the queries
@@ -295,11 +295,11 @@ class Kohana_UI_Component {
             }
 
             // If we made it to here, we must have a match
-            return array($this);
+            return new UI_Query_Result(array($this));
         }
 
         // If we made it to here, we matched nothing
-        return array();
+        return new UI_Query_Result(array());
     }
 
     /**

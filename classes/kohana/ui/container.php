@@ -91,22 +91,23 @@ class Kohana_UI_Container extends UI_Component {
 
         // If we have no queries to run
         if (empty($queries)) {
-            // Return an empty array
-            return array();
+            // Return an empty query result
+            return new UI_Query_Result(array());
         }
 
         // Determine if this class instance matches the query, and if so, add
         // this class instance to the initial set of matches
-        $matches = parent::query($queries);
+        $matches = parent::query($queries)->matches();
 
         // Loop over each of the child items
         foreach ($this->_items as $item) {
             // Merge any returned matches with the current set of matches
-            $matches = array_merge($matches, $item->query($queries));
+            $matches = array_merge($matches,
+                $item->query($queries)->matches());
         }
 
-        // Return all of the matched class instances
-        return $matches;
+        // Return all of the matches
+        return new UI_Query_Result($matches);
     }
 
     /**
