@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 
-<title><?= $container->get_title() ?></title>
+<title><?= HTML::entities($container->get_title()) ?></title>
 
 <?php foreach ($container->get_css() as $uri): ?>
 <link href="<?= $uri ?>" media="screen" rel="stylesheet" type="text/css" />
