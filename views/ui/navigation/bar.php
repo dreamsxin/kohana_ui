@@ -4,7 +4,9 @@
 <div class="navbar-inner">
 <div class="container">
 
-<ul>
+<a class="brand" href="<?= URL::site() ?>"><?= $container->get_title() ?></a>
+
+<ul class="nav">
 
 <?= $container->render_children(); ?>
 
