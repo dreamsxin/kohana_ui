@@ -264,6 +264,24 @@ class Kohana_UI_Component {
                 continue;
             }
 
+            // Grab the attributes to search for
+            $attributes = $query->get_attributes();
+
+            // Loop over each of the attribute key/value pairs
+            foreach ($attributes as $key => $value) {
+                // If we do not have this property on this class
+                if ( ! property_exists($this, '_'.$key)) {
+                    // Move on to the next query
+                    continue 2;
+                }
+
+                // If the property value does not match
+                if ($this->'_'.$key !== $value) {
+                    // Move on to the next query
+                    continue 2;
+                }
+            }
+
             // If we made it to here, we must have a match
             return array($this);
         }
