@@ -276,7 +276,7 @@ class Kohana_UI_Component {
                 }
 
                 // If the property value does not match
-                if ($this->'_'.$key !== $value) {
+                if ($this->{'_'.$key} !== $value) {
                     // Move on to the next query
                     continue 2;
                 }

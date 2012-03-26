@@ -231,7 +231,7 @@ class Kohana_UI_Query {
             // If we are looking for a specific termination character and we
             // have not reached it yet
             if (isset($termination_character) AND
-                $character !== $termination_character) {
+                $character === $termination_character) {
                 // Break out of the while loop
                 break;
             }
