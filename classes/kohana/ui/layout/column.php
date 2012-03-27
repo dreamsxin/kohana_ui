@@ -59,4 +59,26 @@ class Kohana_UI_Layout_Column extends UI_Container {
         return $this;
     }
 
+    /**
+     * Returns the HTML attributes to assign to this component.
+     *
+     * @return  array  An array of key/value pairs.
+     */
+    public function get_attributes()
+    {
+        // Initialize the attributes array with the return value of
+        // the parent method
+        $attributes = parent::get_attributes();
+
+        // Add the width as a 'span[x]' class to the class attribute
+        $attributes['class'] = trim(
+            'span'.((string) $this->get_width()).' '.(
+                isset($attributes['class']) ? $attributes['class'] : ''
+            )
+        );
+
+        // Return the completed set of attributes
+        return $attributes;
+    }
+
 } // End Kohana_UI_Layout_Column
