@@ -71,8 +71,7 @@ class Kohana_UI_Layout_Column extends UI_Container {
         $attributes = parent::get_attributes();
 
         // Add the width as a 'span[x]' class to the class attribute
-        $attributes['class'] = trim(
-            'span'.((string) $this->get_width()).' '.(
+        $attributes['class'] = 'container '.(
                 isset($attributes['class']) ? $attributes['class'] : ''
             )
         );
