@@ -126,7 +126,9 @@ class Kohana_UI_Form extends UI_Container {
      * Attempts to load the passed form data. If nothing is passed in, this
      * method attempts to load the form data from the $_POST superglobal.
      *
-     * @param   mixed   An array or object of key/value pairs to load.
+     * @param   mixed   Optional. An array or object of key/value pairs to
+     *                  load. If nothing was provided, this method will use
+     *                  the data in the $_POST superglobal.
      * @return  object  A reference to this class instance.
      */
     public function load($data = NULL)
@@ -141,7 +143,7 @@ class Kohana_UI_Form extends UI_Container {
         // Grab the list of known form types
         $types = self::_get_input_types();
 
-        // Grab all of the child form objects
+        // Grab all of the child form types and query for them
         $objects = $this->query(implode(', ', $types));
 
         // Loop over each of the child form objects
@@ -156,6 +158,42 @@ class Kohana_UI_Form extends UI_Container {
             $object->load($data);
         }
     }
+
+    /**
+     * Attempts to determine if this form was posted using the hidden form
+     * field named '_form_id'. This, of course, only works if a unique id was
+     * provided for this form. If no data is passed in, this method attempts
+     * to use the $_POST superglobal.
+     *
+     * @param   mixed    Optional. An array or object of key/value pairs to
+     *                   load. If nothing was provided, this method will use
+     *                   the data in the $_POST superglobal.
+     * @return  boolean  If this form was posted or not.
+     */
+    public function posted($data = NULL)
+    {
+        // Grab the id value of this class instance
+        $id = $this->get_id();
+
+        // If no id has been assigned to this form
+        if ( ! isset($id)) {
+            // Throw an exception
+            throw new Kohana_UI_Exception('');
+        }
+
+        // If no data was passed in, use the $_POST superglobal
+        $data = isset($data) ? $data : $_POST;
+
+        // Cast the data into an array so that we know what syntax to use, and
+        // convert all of the passed keys to lowercase
+        $data = array_change_key_case((array) $data);
+
+        // If '_form_id' is not defined
+        if ( ! isset($data['_form_id'])) {
+            // This couldn't be the right form
+            return FALSE;
+        }
+    }     
 
     /**
      * Returns the HTML attributes to assign to this component.
