@@ -96,6 +96,42 @@ class Kohana_UI_Form_Input extends UI_Container {
     }
 
     /**
+     * Attempts to load the value of this form input from the passed data
+     * object/array. If nothing is passed in, this method attempts to find the
+     * data in the $_POST superglobal.
+     *
+     * @param   mixed   Optional. An array or object with key/value pairs. If
+     *                  a key is found matching the name of this form field,
+     *                  this method uses its value. If nothing is passed in,
+     *                  this method attempts to use the $_POST superglobal.
+     * @return  object  A reference to this class instance.
+     */
+    public function load($data = NULL)
+    {
+        // If no data was provided, use the $_POST superglobal
+        $data = isset($data) ? $data : $_POST;
+
+        // Convert the passed data into an array so we know what syntax to
+        // use, then make sure all of the keys are converted to lowercase
+        $data = array_change_key_case((array) $data);
+
+        // Grab the name of this form field and convert it to lowercase
+        $name = strtolower($this->get_name());
+
+        // If there is not a key in the data array with this name
+        if ( ! isset($data[$name])) {
+            // Return a reference to this class instance
+            return $this;
+        }
+
+        // Set the value
+        $this->set_value($data[$name]);
+
+        // Return a reference to this class instance
+        return $this;
+    }
+
+    /**
      * Returns the HTML attributes to assign to this component.
      *
      * @return  array  An array of key/value pairs.

@@ -152,18 +152,8 @@ class Kohana_UI_Form extends UI_Container {
                 continue;
             }
 
-            // Grab the name from the current object and convert
-            // it to lowercase
-            $name = strtolower($object->get_name());
-
-            // If this name is not in the passed data
-            if ( ! isset($data[$name])) {
-                // Move on to the next object
-                continue;
-            }
-
-            // Set the value in the current object
-            $object->set_value($data[$name]);
+            // Attempt to load the data into the current form input object
+            $object->load($data);
         }
     }
 
