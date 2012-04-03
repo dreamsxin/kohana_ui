@@ -11,6 +11,33 @@
 class Kohana_UI_Form extends UI_Container {
 
     /**
+     * @var  array  Holds all of the known form input types.
+     */
+    protected static $_input_types = array();
+
+    /**
+     * Registers the passed type name as a form input type.
+     *
+     * @param   string  The type name to register.
+     * @return  null
+     */
+    public static function register_input_type($type)
+    {
+        self::$_input_types[$type] = TRUE;
+    }
+
+    /**
+     * Returns all of the known input types as an array.
+     *
+     * @return  array  An array of input types.
+     */
+    protected static function _get_input_types()
+    {
+        // Return the known types
+        return array_keys(self::$_input_types);
+    }
+
+    /**
      * @var  string  Holds the form action value.
      */
     protected $_action = NULL;

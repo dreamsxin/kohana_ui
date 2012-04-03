@@ -11,6 +11,11 @@
 class Kohana_UI_Form_Input extends UI_Container {
 
     /**
+     * @var  string  Holds name of the form field.
+     */
+    protected $_name = NULL;
+
+    /**
      * @var  string  Holds current value of the form field.
      */
     protected $_value = NULL;
@@ -25,11 +30,43 @@ class Kohana_UI_Form_Input extends UI_Container {
         // Call the parent initialize method
         parent::_initialize();
 
+        // If the configuration data has a name property
+        if (isset($this->_configuration->name)) {
+            // Set the name
+            $this->set_name($this->_configuration->name);
+        }
+
         // If the configuration data has a value property
         if (isset($this->_configuration->value)) {
             // Set the value
             $this->set_value($this->_configuration->value);
         }
+    }
+
+    /**
+     * Returns the current name.
+     *
+     * @return  string  The name.
+     */
+    public function get_name()
+    {
+        // Return the name
+        return $this->_name;
+    }
+
+    /**
+     * Sets the name to the passed value.
+     *
+     * @param   string  The name to assign.
+     * @return  object  A reference to this class instance.
+     */
+    public function set_name($name)
+    {
+        // Set the name
+        $this->_name = $name;
+
+        // Return a reference to this class instance
+        return $this;
     }
 
     /**
@@ -68,6 +105,9 @@ class Kohana_UI_Form_Input extends UI_Container {
         // Initialize the attributes array with the return value of
         // the parent method
         $attributes = parent::get_attributes();
+
+        // Add the name attribute
+        $attributes['name'] = (string) $this->get_name();
 
         // Add the value attribute
         $attributes['value'] = (string) $this->get_value();
