@@ -93,9 +93,8 @@ class Kohana_UI_Query_Result {
             // Attempt to call the requested method on the current object
             $result = call_user_func_array(array($object, $name), $arguments);
 
-            // If the method name was not 'query' or the method name
-            // did not start with 'get_'
-            if ($name !== 'query' AND substr($name, 0, 4) !== 'get_') {
+            // If the result of the method is just a reference to the object
+            if ($result === $object) {
                 // Move on to the next object
                 continue;
             }
