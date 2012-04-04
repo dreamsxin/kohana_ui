@@ -21,6 +21,11 @@ class Kohana_UI_Form_Input extends UI_Container {
     protected $_value = NULL;
 
     /**
+     * @var  array  Holds any validation rules assigned to the form field.
+     */
+    protected $_validation = NULL;
+
+    /**
      * Sets up the specific configuration items on this class instance.
      *
      * @return  null
@@ -40,6 +45,12 @@ class Kohana_UI_Form_Input extends UI_Container {
         if (isset($this->_configuration->value)) {
             // Set the value
             $this->set_value($this->_configuration->value);
+        }
+
+        // If the configuration data has a set of validation options
+        if (isset($this->_configuration->validation)) {
+            // Set the validation options
+            $this->set_validation($this->_configuration->validation);
         }
     }
 
@@ -96,6 +107,32 @@ class Kohana_UI_Form_Input extends UI_Container {
     }
 
     /**
+     * Returns the current set of validation options.
+     *
+     * @return  array  The validation options.
+     */
+    public function get_validation()
+    {
+        // Return the validation
+        return $this->_validation;
+    }
+
+    /**
+     * Sets the validation options.
+     *
+     * @param   array   The validation options to assign.
+     * @return  object  A reference to this class instance.
+     */
+    public function set_validation($validation)
+    {
+        // Set the validation options
+        $this->_validation = $validation;
+
+        // Return a reference to this class instance
+        return $this;
+    }
+
+    /**
      * Attempts to load the value of this form input from the passed data
      * object/array. If nothing is passed in, this method attempts to find the
      * data in the $_POST superglobal.
@@ -129,6 +166,17 @@ class Kohana_UI_Form_Input extends UI_Container {
 
         // Return a reference to this class instance
         return $this;
+    }
+
+    /**
+     * Attempts to validate this form field using the validation options
+     * configured on this class instance.
+     *
+     * @return  object  An object with an array of errors.
+     */
+    public function validate()
+    {
+
     }
 
     /**
