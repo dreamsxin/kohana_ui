@@ -178,14 +178,15 @@ class Kohana_UI_Form extends UI_Container {
         // If no id has been assigned to this form
         if ( ! isset($id)) {
             // Throw an exception
-            throw new Kohana_UI_Exception('');
+            throw new Kohana_UI_Exception('This method requires a '.
+                'unique id to be assigned to this form.');
         }
 
         // If no data was passed in, use the $_POST superglobal
         $data = isset($data) ? $data : $_POST;
 
-        // Cast the data into an array so that we know what syntax to use, and
-        // convert all of the passed keys to lowercase
+        // Cast the data into an array so that we know what syntax to
+        // use, and convert all of the passed keys to lowercase
         $data = array_change_key_case((array) $data);
 
         // If '_form_id' is not defined
@@ -193,6 +194,16 @@ class Kohana_UI_Form extends UI_Container {
             // This couldn't be the right form
             return FALSE;
         }
+
+        // If the form id in the data does not match the id
+        // value assigned to this form
+        if ($id !== $data['_form_id']) {
+            // This is not the right form
+            return FALSE;
+        }
+
+        // If we made it down here, that means this form was posted
+        return TRUE;
     }     
 
     /**
