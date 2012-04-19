@@ -143,7 +143,7 @@ class Kohana_UI_Form_Control_Group extends UI_Container {
         // the parent method
         $attributes = parent::get_attributes();
 
-        // Add the width as a 'span[x]' class to the class attribute
+        // Add the control-group class
         $attributes['class'] = trim(
             'control-group'.' '.(
                 isset($attributes['class']) ? $attributes['class'] : ''
