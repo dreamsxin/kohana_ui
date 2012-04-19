@@ -5,10 +5,10 @@
         $container->get_attributes()).'>';
 
     // Attempt to grab the label text
-    $label_text = $container->get_label_text();
+    $label = $container->get_label();
 
     // If label text is defined
-    if (isset($label_text)) {
+    if (isset($label)) {
         // Start defining the label attributes
         $label_attributes = array(
             'class' => 'control-label',
@@ -27,7 +27,7 @@
         echo '<label'.HTML::attributes($label_attributes).'>';
 
         // Output the label text
-        echo HTML::entities($label_text);
+        echo HTML::entities($label);
 
         // Output the end tag for the label
         echo '</label>';
