@@ -43,13 +43,14 @@ class Kohana_UI_Component {
      * Configures a new instance of this class using the passed
      * configuration data using the _initialize method.
      *
-     * @param  object  An object with key/value pairs to configure this
-     *                 class instance.
+     * @param  object  Optional. An object or array with key/value pairs
+     *                 to configure this class instance. Defaults to NULL.
      */
-    public function __construct($configuration)
+    public function __construct($configuration = NULL)
     {
-        // Store the passed configuration data
-        $this->_configuration = $configuration;
+        // Store the passed configuration data cast to an object
+        $this->_configuration = (object) (isset($configuration) ?
+            $configuration : array());
 
         // Initialize this class
         $this->_initialize();
