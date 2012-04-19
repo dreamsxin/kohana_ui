@@ -71,9 +71,9 @@ class Kohana_UI_Layout_Container extends UI_Container {
         $attributes = parent::get_attributes();
 
         // Prefix the container class onto any other classes assigned
-        $attributes['class'] = 'container '.(
+        $attributes['class'] = trim('container '.(
             isset($attributes['class']) ? $attributes['class'] : ''
-        );
+        ));
 
         // Return the completed set of attributes
         return $attributes;
